@@ -6,14 +6,23 @@ A full-stack expense tracking application built with Express.js backend and Reac
 
 ```
 expense-tracker/
-├── backend/          # Express.js API server
-│   ├── src/         # Source code
-│   ├── dist/        # Compiled JavaScript
-│   ├── server.ts    # Main server file
+├── backend/                    # Express.js API server
+│   ├── src/                   # Source code
+│   │   ├── server.ts         # Main server file
+│   │   ├── transactions/     # Transaction-related modules
+│   │   │   ├── controller.ts # Transaction controllers
+│   │   │   ├── routes.ts     # Transaction routes
+│   │   │   └── validators.ts # Input validation
+│   │   ├── middleware/       # Express middleware
+│   │   │   └── rateLimitter.ts # Rate limiting
+│   │   └── utils/            # Utility functions
+│   │       ├── db.ts         # Database connection
+│   │       └── upstash.ts    # Redis/Upstash utilities
+│   ├── dist/                 # Compiled JavaScript
 │   └── package.json
-├── mobile/          # React Native/Expo app
-│   ├── src/         # Source code
-│   ├── assets/      # Images, fonts, etc.
+├── mobile/                   # React Native/Expo app
+│   ├── src/                 # Source code
+│   ├── assets/              # Images, fonts, etc.
 │   └── package.json
 └── README.md
 ```
@@ -26,6 +35,8 @@ expense-tracker/
 - npm or yarn
 - Expo CLI (for mobile development)
 - Git
+- Neon Database account (for PostgreSQL)
+- Upstash account (for Redis)
 
 ### Backend Setup
 
@@ -46,6 +57,9 @@ expense-tracker/
    ```env
    SERVER_URL=http://localhost
    PORT=3000
+   DATABASE_URL=your_neon_database_url
+   UPSTASH_REDIS_REST_URL=your_upstash_redis_url
+   UPSTASH_REDIS_REST_TOKEN=your_upstash_redis_token
    ```
 
 4. Run the development server:
@@ -89,10 +103,20 @@ expense-tracker/
 
 ### Backend API
 
-- Express.js server with TypeScript
-- RESTful API endpoints
-- Environment configuration
-- TypeScript compilation
+- **Express.js server** with TypeScript
+- **PostgreSQL database** using Neon (serverless)
+- **Input validation** with express-validator
+- **Rate limiting** with Upstash Redis
+- **RESTful API endpoints** for transactions
+- **TypeScript compilation** with strict type checking
+- **Environment configuration** with dotenv
+
+### API Endpoints
+
+- `POST /api/transactions` - Create new transaction
+- `GET /api/transactions/:userId` - Get user transactions
+- `PUT /api/transactions/:transactionId` - Update transaction
+- `DELETE /api/transactions/:transactionId` - Delete transaction
 
 ### Mobile App
 
@@ -108,6 +132,9 @@ expense-tracker/
 - **Runtime**: Node.js
 - **Framework**: Express.js
 - **Language**: TypeScript
+- **Database**: PostgreSQL (Neon)
+- **Cache**: Redis (Upstash)
+- **Validation**: express-validator
 - **Package Manager**: npm
 - **Development**: tsx (TypeScript execution)
 
@@ -146,13 +173,15 @@ npx expo eject       # Eject from Expo managed workflow
 - ES2022 target
 - Module resolution: node
 - Path mapping for clean imports
+- Source maps and declaration files
 
 ### Environment Variables
 
 Create `.env` files in both backend and mobile directories as needed for:
 
+- Database connections (Neon PostgreSQL)
+- Redis connections (Upstash)
 - API endpoints
-- Database connections
 - Authentication keys
 - Environment-specific settings
 
@@ -161,6 +190,10 @@ Create `.env` files in both backend and mobile directories as needed for:
 ### Backend Dependencies
 
 - `express`: Web framework
+- `@neondatabase/serverless`: PostgreSQL database
+- `@upstash/redis`: Redis client
+- `@upstash/ratelimit`: Rate limiting
+- `express-validator`: Input validation
 - `dotenv`: Environment variable management
 - `typescript`: TypeScript compiler
 - `tsx`: TypeScript execution for development
@@ -171,6 +204,29 @@ Create `.env` files in both backend and mobile directories as needed for:
 - `react-native`: Mobile app framework
 - Additional dependencies will be added as features are implemented
 
+## 🗄️ Database Schema
+
+### Transactions Table
+
+```sql
+CREATE TABLE transactions (
+    id SERIAL PRIMARY KEY,
+    user_id VARCHAR(255) NOT NULL,
+    title VARCHAR(100) NOT NULL,
+    amount DECIMAL(10,2) NOT NULL,
+    category VARCHAR(50) NOT NULL CHECK (category IN ('income', 'expense')),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+## 🔒 Security Features
+
+- **Input Validation**: All API inputs are validated using express-validator
+- **Rate Limiting**: API endpoints are protected with rate limiting
+- **Type Safety**: Full TypeScript implementation with strict type checking
+- **SQL Injection Protection**: Using parameterized queries with Neon database
+
 ## 🚀 Deployment
 
 ### Backend Deployment
@@ -178,6 +234,7 @@ Create `.env` files in both backend and mobile directories as needed for:
 1. Build the project: `npm run build`
 2. Deploy the `dist` folder to your hosting service
 3. Set environment variables on your hosting platform
+4. Ensure database and Redis connections are configured
 
 ### Mobile Deployment
 
