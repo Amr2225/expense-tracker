@@ -40,12 +40,7 @@ export const userIdValidator = [
 ]
 
 export const transactionIdValidator = [
-    param("transactionId").notEmpty().withMessage("Transaction ID is required").custom((value) => {
-        if (isNaN(+value)) {
-            throw new Error("Transaction ID must be a number");
-        }
-        return true;
-    }).bail(),
+    param("transactionId").notEmpty().withMessage("Transaction ID is required").isNumeric().withMessage("Transaction ID must be a number").bail()
 ]
 
 export const validate = (req: Request, res: Response, next: NextFunction) => {
