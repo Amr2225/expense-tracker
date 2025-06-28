@@ -1,4 +1,4 @@
-import { Response } from "express";
+import { Request, Response } from "express";
 import { sql } from "../utils/db";
 import { CreateTransactionBody, TypedRequest } from "./validators";
 
@@ -16,7 +16,7 @@ export const makeTransaction = async (req: TypedRequest<CreateTransactionBody>, 
     }
 }
 
-export const getTransactions = async (req: TypedRequest<CreateTransactionBody>, res: Response) => {
+export const getTransactions = async (req: Request, res: Response) => {
     const { userId } = req.params;
 
     try {
@@ -47,8 +47,7 @@ export const deleteTransaction = async (req: TypedRequest<CreateTransactionBody>
 }
 
 
-// =====Summary=====
-
+// ===== Summary =====
 export const getSummary = async (req: TypedRequest<CreateTransactionBody>, res: Response) => {
     const { userId } = req.params;
 

@@ -1,7 +1,13 @@
 import { neon } from "@neondatabase/serverless"
 import "dotenv/config"
 
-export const sql = neon(process.env["DATABASE_URL"] || "")
+const databaseUrl = process.env["DATABASE_URL"];
+
+if (!databaseUrl) {
+    throw new Error("DATABASE_URL environment variable is required");
+}
+
+export const sql = neon(databaseUrl);
 
 export async function initDB() {
     try {
