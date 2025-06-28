@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { sql } from "../utils/db";
-import { CreateTransactionBody, TypedRequest } from "./validators";
+import { sql } from "@/utils/db";
+import { CreateTransactionBody, TypedRequest } from "@/transactions/validators";
 
 
 export const makeTransaction = async (req: TypedRequest<CreateTransactionBody>, res: Response) => {

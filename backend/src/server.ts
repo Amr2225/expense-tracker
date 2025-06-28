@@ -1,9 +1,9 @@
 import express from "express";
-import { initDB } from "./utils/db";
+import { initDB } from "@/utils/db";
 import "dotenv/config";
 
 // Modules
-import transactionsRouter from "./transactions/routes";
+import transactionsRouter from "@/transactions/routes";
 
 const app = express();
 app.use(express.json());

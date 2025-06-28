@@ -27,3 +27,4 @@ export async function initDB() {
         process.exit(1) // 1 is an error code, 0 is success
     }
 }
+

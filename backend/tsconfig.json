@@ -39,7 +39,7 @@
       "@/services/*": ["src/services/*"]
     }
   },
-  "include": ["src/**/*", "server.ts"],
+  "include": ["src/**/*", "src/server.ts"],
   "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"],
   "ts-node": {
     "esm": true,

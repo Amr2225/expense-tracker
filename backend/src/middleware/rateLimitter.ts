@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { Limiter } from "../utils/upstash";
+import { Limiter } from "@/utils/upstash";
 
 const normalLimiterMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     const ip = req.ip;
