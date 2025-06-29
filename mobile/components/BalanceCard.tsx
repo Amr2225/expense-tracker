@@ -1,0 +1,30 @@
+import { styles } from "@/assets/styles/home.styles";
+import { COLORS } from "@/constants/Colors";
+import { Summary } from "@/types/transacation.type";
+import { View, Text } from "react-native";
+
+export default function BalanceCard({ summary }: { summary: Summary }) {
+  return (
+    <View style={styles.balanceCard}>
+      <Text style={styles.balanceTitle}>Total Balance</Text>
+      <Text style={styles.balanceAmount}>${summary.balance ? summary.balance.toFixed(2) : 0}</Text>
+
+      <View style={styles.balanceStats}>
+        <View style={styles.balanceStatItem}>
+          <Text style={styles.balanceStatLabel}>Income</Text>
+          <Text style={[styles.balanceStatAmount, { color: COLORS.income }]}>
+            +${summary.income ? summary.income.toFixed(2) : 0}
+          </Text>
+        </View>
+
+        <View style={[styles.balanceStatItem, styles.statDivider]} />
+        <View style={styles.balanceStatItem}>
+          <Text style={styles.balanceStatLabel}>Expense</Text>
+          <Text style={[styles.balanceStatAmount, { color: COLORS.expense }]}>
+            -${summary.expense ? summary.expense.toFixed(2) : 0}
+          </Text>
+        </View>
+      </View>
+    </View>
+  );
+}
