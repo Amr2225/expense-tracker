@@ -61,7 +61,7 @@ export default function Page() {
               contentFit='contain'
             />
             <View style={styles.welcomeContainer}>
-              <Text style={styles.welcomeText}>Welcom,</Text>
+              <Text style={styles.welcomeText}>Welcome,</Text>
               <Text style={styles.usernameText}>
                 {user?.emailAddresses[0].emailAddress.split("@")[0]}
               </Text>
@@ -69,7 +69,6 @@ export default function Page() {
           </View>
 
           {/* HEADER RIGHT */}
-
           <View style={styles.headerRight}>
             <Pressable
               style={[styles.addButton, { overflow: "hidden" }]}
@@ -83,17 +82,17 @@ export default function Page() {
           </View>
         </View>
 
-        <BalanceCard summary={summary.data!} />
+        <BalanceCard summary={summary.data?.[0]!} />
       </View>
 
       <FlatList
         data={transactions.data}
         style={styles.transactionsList}
-        contentContainerStyle={styles.transactionsList}
+        contentContainerStyle={styles.transactionsListContent}
         renderItem={({ item }) => (
           <TransactoinCard transaction={item} deleteTransaction={handleDeleteTransaction} />
         )}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.id.toString()}
         ListEmptyComponent={<EmptyTransactions />}
         showsVerticalScrollIndicator={false}
         refreshControl={

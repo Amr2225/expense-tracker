@@ -3,14 +3,14 @@ export type Transaction = {
     user_id: string;
     title: string;
     amount: string;
-    category: "income" | "expense";
+    category: "Income" | string;
     createdAt: string;
 }
 
 export type Summary = {
-    balance: number;
-    income: number;
-    expense: number;
+    balance: string;
+    income: string;
+    expense: string;
 }
 
 export type CreateTransactionBody = Omit<Transaction, "id" | "createdAt">;

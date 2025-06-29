@@ -10,9 +10,9 @@ import moment from "moment";
 
 const CATEGORY_ICONS = {
   "Food & Drinks": "fast-food",
-  Shopping: "shopping-cart",
+  Shopping: "cart",
   Transportation: "car",
-  Entertainment: "movie",
+  Entertainment: "film",
   Bills: "receipt",
   Income: "cash",
   Other: "ellipsis-horizontal",
@@ -31,13 +31,13 @@ export function TransactoinCard({ transaction, deleteTransaction }: TransactoinC
   );
 
   return (
-    <View style={styles.transactionCard}>
-      <TouchableOpacity style={styles.transactionCard}>
+    <View style={styles.transactionCard} key={transaction.id}>
+      <TouchableOpacity style={styles.transactionContent}>
         <View style={styles.categoryIconContainer}>
           <Ionicons name={iconName as any} size={24} color={COLORS.primary} />
         </View>
 
-        <View style={styles.transactionsList}>
+        <View style={styles.transactionLeft}>
           <Text style={styles.transactionTitle}>{transaction.title}</Text>
           <Text style={styles.transactionCategory}>{transaction.category}</Text>
         </View>

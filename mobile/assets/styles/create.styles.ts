@@ -22,6 +22,7 @@ export const styles = StyleSheet.create({
     },
     backButton: {
         padding: 5,
+        paddingLeft: 0,
     },
     saveButtonContainer: {
         flexDirection: "row",
@@ -32,9 +33,11 @@ export const styles = StyleSheet.create({
         opacity: 0.5,
     },
     saveButton: {
-        fontSize: 16,
+        padding: 10,
+        paddingLeft: 0,
+        borderRadius: 10,
         color: COLORS.primary,
-        fontWeight: "600",
+        fontWeight: "bold",
     },
     card: {
         backgroundColor: COLORS.card,

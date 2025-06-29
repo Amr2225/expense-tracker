@@ -25,8 +25,8 @@ export const styles = StyleSheet.create({
         alignItems: "center",
     },
     headerLogo: {
-        width: 75,
-        height: 75,
+        width: 70,
+        height: 70,
     },
     welcomeContainer: {
         flex: 1,
@@ -37,7 +37,7 @@ export const styles = StyleSheet.create({
         marginBottom: 2,
     },
     usernameText: {
-        fontSize: 16,
+        fontSize: 14,
         fontWeight: "600",
         color: COLORS.text,
     },

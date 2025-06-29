@@ -54,8 +54,8 @@ export const getSummary = async (req: TypedRequest<CreateTransactionBody>, res: 
     try {
         const summary = await sql`
         SELECT SUM(amount) as balance,
-        COALESCE(SUM(CASE WHEN category = 'income' THEN amount ELSE 0 END), 0) as income,
-        COALESCE(SUM(CASE WHEN category = 'expense' THEN amount ELSE 0 END), 0) as expense
+        COALESCE(SUM(CASE WHEN category = 'Income' THEN amount ELSE 0 END), 0) as income,
+        COALESCE(SUM(CASE WHEN category != 'Income' THEN amount ELSE 0 END), 0) as expense
         FROM transactions 
         WHERE user_id = ${userId}
         `;

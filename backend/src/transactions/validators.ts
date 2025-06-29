@@ -6,7 +6,7 @@ export interface CreateTransactionBody {
     user_id: string;
     title: string;
     amount: number;
-    category: 'income' | 'expense';
+    category: 'Income' | string;
 }
 
 export interface TypedRequest<T> extends Request {
@@ -17,18 +17,28 @@ export interface TypedRequest<T> extends Request {
     }
 }
 
+const categories = [
+    'Food & Drinks',
+    'Shopping',
+    'Transportation',
+    'Entertainment',
+    'Bills',
+    'Income',
+    'Other'
+]
+
 export const createTransactionValidator = [
-    check("user_id").notEmpty().withMessage("User ID is required").bail(),
-    check("title").notEmpty().withMessage("Title is required").bail(),
-    check("amount").isNumeric().withMessage("Amount must be a number").bail(),
-    check("category").isIn(["income", "expense"]).withMessage("Category must be either 'income' or 'expense'").bail(),
+    check("user_id").notEmpty().withMessage("User ID is required"),
+    check("title").notEmpty().withMessage("Title is required"),
+    check("amount").isNumeric().withMessage("Amount must be a number"),
+    check("category").isIn(categories).withMessage("Category must be a valid category"),
     check('amount').custom((value, { req }) => {
         const typedReq = req as TypedRequest<CreateTransactionBody>;
-        if (value < 0 && typedReq.body.category !== 'expense') {
+        if (value < 0 && typedReq.body.category === 'Income') {
             throw new Error("Negative amounts are only allowed for expenses");
         }
 
-        if (value > 0 && typedReq.body.category !== 'income') {
+        if (value > 0 && typedReq.body.category !== 'Income') {
             throw new Error("Positive amounts are only allowed for income");
         }
         return true;

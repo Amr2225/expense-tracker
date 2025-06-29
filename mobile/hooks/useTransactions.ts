@@ -2,6 +2,7 @@ import { getTransactions, createTransaction, deleteTransaction, getSummary } fro
 import { CreateTransactionBody } from "@/types/transacation.type";
 import { useMutation, useQueryClient, useQueries } from "@tanstack/react-query";
 import { useMemo } from "react";
+import { toast } from "sonner-native";
 
 
 export const useTransactions = (userId: string) => {
@@ -20,8 +21,12 @@ export const useTransactions = (userId: string) => {
     const createTransactionMutation = useMutation({
         mutationFn: (transaction: CreateTransactionBody) => createTransaction(transaction),
         onSuccess: () => {
+            toast.success("Transaction created successfully");
             queryClient.invalidateQueries({ queryKey: ["transactions", userId] });
             queryClient.invalidateQueries({ queryKey: ["summary", userId] });
+        },
+        onError: (error) => {
+            toast.error(error.message);
         },
     });
 
@@ -29,6 +34,7 @@ export const useTransactions = (userId: string) => {
         mutationFn: (transactionId: string) => deleteTransaction(transactionId),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["transactions"] });
+            queryClient.invalidateQueries({ queryKey: ["summary"] });
         },
     });
 
