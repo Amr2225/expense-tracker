@@ -13,10 +13,11 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#8B593E"
+        "foregroundImage": "./assets/images/splash-icon.png",
+        "backgroundColor": "#FFF8F3"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.amr2225.wallet"
     },
     "plugins": [
       "expo-router",
@@ -26,7 +27,7 @@
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#8B593E"
+          "backgroundColor": "#FFF8F3"
         }
       ]
     ],
