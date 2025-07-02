@@ -1,9 +1,8 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "module": "ESNext",
-    "moduleResolution": "node",
-    "lib": ["ES2022"],
+    "module": "commonjs",
+    "lib": ["ES2018", "DOM"],
     "outDir": "./dist",
     "rootDir": ".",
     "strict": true,
@@ -29,20 +28,20 @@
     "allowUnreachableCode": false,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@/types/*": ["src/types/*"],
-      "@/utils/*": ["src/utils/*"],
-      "@/middleware/*": ["src/middleware/*"],
-      "@/routes/*": ["src/routes/*"],
-      "@/controllers/*": ["src/controllers/*"],
-      "@/models/*": ["src/models/*"],
-      "@/services/*": ["src/services/*"]
+      "@/*": ["src/*"]
+      // "@/types/*": ["src/types/*"],
+      // "@/utils/*": ["src/utils/*"],
+      // "@/middleware/*": ["src/middleware/*"],
+      // "@/routes/*": ["src/routes/*"],
+      // "@/controllers/*": ["src/controllers/*"],
+      // "@/models/*": ["src/models/*"],
+      // "@/services/*": ["src/services/*"]
     }
   },
-  "include": ["src/**/*", "src/server.ts"],
-  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"],
-  "ts-node": {
-    "esm": true,
-    "experimentalSpecifierResolution": "node"
-  }
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/*.spec.ts"]
+  // "ts-node": {
+  //   "esm": true,
+  //   "experimentalSpecifierResolution": "node"
+  // }
 }
