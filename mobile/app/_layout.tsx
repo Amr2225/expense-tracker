@@ -1,7 +1,7 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from "@react-navigation/native";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { View } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 import { useFonts } from "expo-font";
 import { Slot, SplashScreen } from "expo-router";
@@ -9,13 +9,13 @@ import { StatusBar } from "expo-status-bar";
 import { Toaster } from "sonner-native";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
-import { tokenCache } from "@clerk/clerk-expo/token-cache";
 import { ClerkProvider } from "@clerk/clerk-expo";
+import { tokenCache } from "@clerk/clerk-expo/token-cache";
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { COLORS } from "@/constants/Colors";
-import "react-native-reanimated";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useEffect } from "react";
+import "react-native-reanimated";
 
 SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
@@ -42,7 +42,10 @@ export default function RootLayout() {
       <SafeAreaProvider>
         <GestureHandlerRootView style={{ flex: 1 }}>
           <QueryClientProvider client={queryClient}>
-            <ClerkProvider tokenCache={tokenCache}>
+            <ClerkProvider
+              publishableKey={process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!}
+              tokenCache={tokenCache}
+            >
               <View style={{ flex: 1, backgroundColor: COLORS.background }}>
                 <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.background }}>
                   <Slot />
