@@ -17,7 +17,11 @@
         "backgroundColor": "#FFF8F3"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.amr2225.wallet"
+      "package": "com.amr2225.wallet",
+      "permissions": [
+        "INTERNET"
+      ],
+      "usesCleartextTraffic": true
     },
     "plugins": [
       "expo-router",
