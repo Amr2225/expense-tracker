@@ -1,6 +1,6 @@
 import { CreateTransactionBody, Summary, Transaction } from "@/types/transacation.type";
 
-const API_URL = "http://192.168.1.2:3000/api";
+const API_URL = "https://wallet-ozqu.onrender.com";
 
 export const getTransactions = async (userId: string): Promise<Transaction[]> => {
     const response = await fetch(`${API_URL}/transactions/${userId}`);
